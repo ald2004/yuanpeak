@@ -11,11 +11,12 @@ extern lv_color_t* lv_disp_buf_p;
 
 void HAL::Init()
 {
+
     Serial::begin(115200);
     Serial::println(VERSION_FIRMWARE_NAME);
     Serial::println("Version: " VERSION_SOFTWARE);
     Serial::println("Author: " VERSION_AUTHOR_NAME);
-
+    // systick_config();
     // Move the malloc process to Init() to make sure that the largest heap can be used for this buffer.
     // lv_disp_buf_p = static_cast<lv_color_t*>(malloc(DISP_BUF_SIZE * sizeof(lv_color_t)));
     // if (lv_disp_buf_p == nullptr)

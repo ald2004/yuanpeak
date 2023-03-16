@@ -755,9 +755,6 @@ void LCD_Scan_Dir(uint8_t dir)
     LCD_WR_REG(lcddev.setycmd+3);LCD_WR_DATA((lcddev.height-1)&0XFF);
 }
 
-
-
-
 //屏幕初始化
 void LCD_Init(void)
 {
@@ -772,12 +769,6 @@ void LCD_Init(void)
     LCD_BLK_ON;  // 点亮背光 
 
 }
-
-
-
-
-
-
 
 //画点
 //x,y:坐标

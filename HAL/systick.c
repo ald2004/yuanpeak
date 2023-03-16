@@ -84,3 +84,21 @@ void delay_decrement(void)
         delay--;
     }
 }
+
+
+// uint32_t get_systick_ms(void)
+// {
+// 	if (!is_init) systick_init();
+ 
+// 	uint32_t _systick_ms, _val;
+ 
+// 	do {
+// 		_systick_ms = systick_ms;
+// 		_val = SysTick->VAL;
+// 	} while (_systick_ms != systick_ms);
+ 
+// 	uint32_t tick = (SYSTICK_EXT_CLOCK_500MS_CNT - _val);
+// 	uint32_t tick_ms = tick / (SYSTICK_EXT_CLOCK_500MS_CNT / 500);
+// 	tick_ms = tick_ms + _systick_ms;
+ 
+// 	return tick_ms ;

@@ -69,6 +69,12 @@ add_compile_options(-Og)
 
 # lvgl  =============================================================================================
 # include(FetchContent)
+option(LV_USE_DEMO_STRESS "lvgl stress test" ON)
+file(GLOB_RECURSE LV_USE_DEMO_STRESS_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/lib/lvgl/demos/stress/*.c)
+if(LV_USE_DEMO_STRESS)
+add_compile_definitions(WITH_OPENCV2)
+
+endif()
 set(LVGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/lvgl)
 set(LV_CONF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/lv_conf.h CACHE STRING "" FORCE)
 option(LV_LVGL_H_INCLUDE_SIMPLE
@@ -91,8 +97,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 file(GLOB_RECURSE LVGL_SOURCES ${LVGL_ROOT_DIR}/src/*.c)
 # file(GLOB_RECURSE EXAMPLE_SOURCES ${LVGL_ROOT_DIR}/examples/*.c)
 file(GLOB EXAMPLE_SOURCES 
-    ${LVGL_ROOT_DIR}/examples/porting/lv_port_disp_template.c
-    ${LVGL_ROOT_DIR}/examples/porting/lv_port_indev_template.c
+    ${LVGL_ROOT_DIR}/porting/lv_port_disp.c
+    ${LVGL_ROOT_DIR}/porting/lv_port_indev.c
 )
 file(GLOB_RECURSE DEMO_SOURCES ${LVGL_ROOT_DIR}/demos/*.c)
 # Build LVGL library
@@ -207,6 +213,7 @@ add_executable(
     ${SOURCES} 
     ${LVGL_SOURCES}
     ${EXAMPLE_SOURCES}
+    ${LV_USE_DEMO_STRESS_SOURCE}
 )
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 # add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)

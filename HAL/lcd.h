@@ -102,3 +102,4 @@ void LCD_Fast_DrawPoint(uint16_t x,uint16_t y,uint16_t color);     //快速画�
 uint16_t  LCD_ReadPoint(uint16_t x,uint16_t y);                    //读点 
 void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode);////在指定位置显示一个字符
 void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t size,uint8_t mode,uint8_t *p);//显示字符串
+void LCD_WriteRAM(uint16_t  RGB_Code);

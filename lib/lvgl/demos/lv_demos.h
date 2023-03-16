@@ -15,6 +15,7 @@ extern "C" {
  *********************/
 #include "../lvgl.h"
 
+#include "stress/lv_demo_stress.h"
 #if LV_USE_DEMO_BENCHMARK
 #include "benchmark/lv_demo_benchmark.h"
 #endif

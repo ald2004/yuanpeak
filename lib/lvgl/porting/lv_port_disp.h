@@ -13,7 +13,7 @@ extern "C" {
 #include "lvgl/lvgl.h"
 #endif
 #include "HAL/lcd.h"
-#include "HAL/touch.h"
+
 /*********************
  *      DEFINES
  *********************/

@@ -2,9 +2,10 @@
 extern "C"{
 #endif
 #include <stdio.h>
-// #include "lib/lvgl/lvgl.h"
-#include "lib/lvgl/examples/porting/lv_port_disp_template.h"
-#include "lib/lvgl/examples/porting/lv_port_indev_template.h"
+#include "HAL/systick.h"
+#include "lib/lvgl/porting/lv_port_disp.h"
+#include "lib/lvgl/porting/lv_port_indev.h"
+#include "lib/lvgl/demos/lv_demos.h"
 // #include "lcd.h"
 // #include "touch.h"
 

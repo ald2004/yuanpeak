@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_port_disp_template.h"
+#include "lv_port_disp.h"
 #include <stdbool.h>
 
 /*********************
@@ -105,6 +105,8 @@ static void disp_init(void)
     // LCD_ShowString(30,50,480,80,24,1,"https://lckfb.com");
     // LCD_ShowString(30,80,480,110,24,1,lcd_id);
     // LCD_ShowString(30,110,480,140,24,1,"touch test....");
+    LCD_Scan_Dir(D2U_L2R);
+    
 }
 
 volatile bool disp_flush_enabled = true;
@@ -128,19 +130,26 @@ void disp_disable_update(void)
  *'lv_disp_flush_ready()' has to be called when finished.*/
 static void disp_flush(lv_disp_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-    // if(disp_flush_enabled) {
+    if(disp_flush_enabled || 1) {
     //     /*The most simple case (but also the slowest) to put all pixels to the screen one-by-one*/
 
-    //     int32_t x;
-    //     int32_t y;
-    //     for(y = area->y1; y <= area->y2; y++) {
-    //         for(x = area->x1; x <= area->x2; x++) {
-    //             /*Put a pixel to the display. For example:*/
-    //             /*put_px(x, y, *color_p)*/
-    //             color_p++;
-    //         }
-    //     }
-    // }
+        int32_t x;
+        int32_t y;
+        for(y = area->y1; y <= area->y2; y++) {
+            for(x = area->x1; x <= area->x2; x++) {
+                /*Put a pixel to the display. For example:*/
+                // put_px(x, y, *color_p)
+                LCD_Fast_DrawPoint(x,y,*(uint16_t *)(color_p));
+                color_p++;
+            }
+        }
+    // void BlockWrite(unsigned int Xstart,unsigned int Xend,unsigned int Ystart,unsigned int Yend)
+    // BlockWrite(area->x1,area->x2,area->y1,area->y2);
+    // LCD_WriteRAM_Prepare();
+    // LCD_WriteRAM(*(uint16_t *)color_p); //*(uint16_t *)&c1;
+    // void LCD_Fast_DrawPoint(uint16_t x,uint16_t y,uint16_t color)
+
+    }
 
     /*IMPORTANT!!!
      *Inform the graphics library that you are ready with the flushing*/

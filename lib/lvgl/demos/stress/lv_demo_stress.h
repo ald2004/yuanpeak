@@ -1,10 +1,4 @@
-/**
- * @file lv_demo_stress.h
- *
- */
-
-#ifndef LV_DEMO_STRESS_H
-#define LV_DEMO_STRESS_H
+#pragma once 
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,5 +31,3 @@ void lv_demo_stress(void);
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-
-#endif /*LV_DEMO_STRESS_H*/

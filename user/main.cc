@@ -9,13 +9,15 @@ extern "C" {
 #include "HAL/systick.h"
 #include <stdio.h>
 #include "HAL/bsp_usart.h"
-
+// #include "lv_demos.h"
+// #include "lib/lvgl/lvgl.h"
 #ifdef __cplusplus
 }
 #endif
 
 #include "HAL/Serial.h"
 #include "HAL/Display.h"
+
 
 int main(void){
 
@@ -28,10 +30,9 @@ int main(void){
     // led_init();
     // key_init();
     displayinit();
-
     while(1) {
-        delay_1ms(1000);
-        Serial::println(".");
+        // delay_1ms(1000);
+        // Serial::println(".");
 
 
 
@@ -50,7 +51,7 @@ int main(void){
         //         lastpos[t][1] = tp_dev.y[t];
         //         printf("tp_dev.x[t]:%d tp_dev.y[t]:%d\r\n", tp_dev.x[t], tp_dev.y[t]);
                 
-                // LCD_Fast_DrawPoint(tp_dev.x[t], tp_dev.y[t],POINT_COLOR);
+        //         LCD_Fast_DrawPoint(tp_dev.x[t], tp_dev.y[t],POINT_COLOR);
         //         LCD_Fast_DrawPoint(tp_dev.x[t]-1, tp_dev.y[t],POINT_COLOR);
         //         LCD_Fast_DrawPoint(tp_dev.x[t], tp_dev.y[t]-1,POINT_COLOR);
         //         LCD_Fast_DrawPoint(tp_dev.x[t]+1, tp_dev.y[t],POINT_COLOR);
@@ -60,6 +61,6 @@ int main(void){
         //     }
         //     else  lastpos[t][0] = 0XFFFF;
         // }
-        // delay_1ms(1);
+        delay_1ms(1);
     }
 }
