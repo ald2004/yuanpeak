@@ -1,0 +1,1 @@
+pyocd flash --erase chip --target gd32f450zg ./gd32f450zgt6.elf
