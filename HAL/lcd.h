@@ -4,7 +4,8 @@
 #include "gd32f4xx_gpio.h"
 #include "gd32f4xx_rcu.h"
 #include "gd32f4xx_exmc.h"
-#include "systick.h"
+// #include "systick.h"
+#include <rtthread.h>
 
 
 #define LCD_RST_ON  gpio_bit_set(GPIOD,GPIO_PIN_12)     // PD12

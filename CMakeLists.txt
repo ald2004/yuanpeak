@@ -13,7 +13,7 @@ set(C_TARGET_FLAG --target=arm-arm-none-eabi)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 99)
- 
+
 set(CROSS_COMPILE_PREFIX /opt/gd32/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi)
 set(CMAKE_C_COMPILER ${CROSS_COMPILE_PREFIX}-gcc)
 set(CMAKE_CXX_COMPILER ${CROSS_COMPILE_PREFIX}-g++)
@@ -25,12 +25,13 @@ set(CMAKE_SIZE ${CROSS_COMPILE_PREFIX}-size)
 set(CMAKE_AR ${CROSS_COMPILE_PREFIX}-ar)
 
 set(CPU "-mcpu=cortex-m4")
-set(FLOAT-ABI "")
+set(FLOAT-ABI "-mfpu=fpv4-sp-d16")
 #NONE for Cortex-M0/M0+/M3
-set(FPU "")
-set(MCU_FLAGS "${CPU} -mthumb ${FPU} ${FLOAT-ABI}")
+# -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
+set(FPU "-mfloat-abi=soft")
+set(MCU_FLAGS "${CPU} -mthumb ") # ${FPU} ${FLOAT-ABI}
 set(CMAKE_C_FLAGS "${MCU_FLAGS} -std=gnu99 -Wall -fstack-usage -Wstack-usage=512 -fdata-sections -ffunction-sections -fno-common -fmessage-length=0 ${DBG_FLAGS} " CACHE INTERNAL "C compiler flags")
-#CPP 
+#CPP
 set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -fno-rtti -fno-exceptions -fno-builtin -Wall -fdata-sections -ffunction-sections ${DBG_FLAGS} " CACHE INTERNAL "Cxx compiler flags")
 #ASFLAGS
 set(CMAKE_ASM_FLAGS "${MCU_FLAGS} -x assembler-with-cpp ${DBG_FLAGS} ")
@@ -83,7 +84,7 @@ option(LV_LVGL_H_INCLUDE_SIMPLE
 # Option to define LV_CONF_INCLUDE_SIMPLE, default: ON
 option(LV_CONF_INCLUDE_SIMPLE
        "Use #include \"lv_conf.h\" instead of #include \"../../lv_conf.h\"" ON)
-option(LV_CONF_BUILD_DISABLE_EXAMPLES "disable example." ON) 
+option(LV_CONF_BUILD_DISABLE_EXAMPLES "disable example." ON)
 option(LV_CONF_BUILD_DISABLE_DEMOS "disable demos." ON)
 # Option to set LV_CONF_PATH, if set parent path LV_CONF_DIR is added to
 # includes
@@ -96,7 +97,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # Set sources used for LVGL components
 file(GLOB_RECURSE LVGL_SOURCES ${LVGL_ROOT_DIR}/src/*.c)
 # file(GLOB_RECURSE EXAMPLE_SOURCES ${LVGL_ROOT_DIR}/examples/*.c)
-file(GLOB EXAMPLE_SOURCES 
+file(GLOB EXAMPLE_SOURCES
     ${LVGL_ROOT_DIR}/porting/lv_port_disp.c
     ${LVGL_ROOT_DIR}/porting/lv_port_indev.c
 )
@@ -167,9 +168,18 @@ endif()
 #   PUBLIC_HEADER DESTINATION "${INC_INSTALL_DIR}")
 # lvgl  =============================================================================================
 
+# rtthread nano =============================================================================================
+file(GLOB RTTHREAD_SOURCES
+    ${PROJECT_SOURCE_DIR}/rtthread/src/*.c
+    ${PROJECT_SOURCE_DIR}/rtthread/board.c
+    ${PROJECT_SOURCE_DIR}/rtthread/libcpu/arm/cortex-m4/cpuport.c
+    ${PROJECT_SOURCE_DIR}/rtthread/libcpu/arm/cortex-m4/context_gcc.S
+    )
 
+# set(RTTHREAD_ASM_SOURCES ${PROJECT_SOURCE_DIR}/rtthread/context_rvds.S)
+# rtthread nano =============================================================================================
 
-set(ASM_SOURCES ${PROJECT_SOURCE_DIR}/../Firmware/CMSIS/GD/GD32F4xx/Source/GCC/startup_gd32f450_470.S)
+set(ASM_SOURCES ${PROJECT_SOURCE_DIR}/../Firmware/CMSIS/GD/GD32F4xx/Source/ARM/startup_gd32f450_470.S)
 file(GLOB_RECURSE SOURCES
     ${PROJECT_SOURCE_DIR}/GD32F4xx/*.c
     ${PROJECT_SOURCE_DIR}/user/*.c
@@ -198,6 +208,8 @@ file(GLOB_RECURSE SOURCES
     ${PROJECT_SOURCE_DIR}/User/systick.c
     ${PROJECT_SOURCE_DIR}/user/main.cc
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS/GD/GD32F4xx/Source/GCC/startup_gd32f450_470.S
+    # ${PROJECT_SOURCE_DIR}/rtthread/context_gcc.S
+    # ${PROJECT_SOURCE_DIR}/rtthread/divsi3.S
     )
 include_directories(
     ${PROJECT_SOURCE_DIR}
@@ -205,15 +217,18 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS/GD/GD32F4xx/Include
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS
     ${PROJECT_SOURCE_DIR}/Firmware/GD32F4xx_standard_peripheral/Include
+    ${PROJECT_SOURCE_DIR}/rtthread
+    ${PROJECT_SOURCE_DIR}/rtthread/include
     )
 set(LINKER_SCRIPT ${PROJECT_SOURCE_DIR}/Firmware/Ld/Link.ld)
 
 add_executable(
-    ${PROJECT_NAME}.elf 
-    ${SOURCES} 
+    ${PROJECT_NAME}.elf
+    ${SOURCES}
     ${LVGL_SOURCES}
     ${EXAMPLE_SOURCES}
     ${LV_USE_DEMO_STRESS_SOURCE}
+    ${RTTHREAD_SOURCES}
 )
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 # add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)

@@ -61,7 +61,16 @@ lv_indev_t * indev_touchpad;
 /**********************
  *      MACROS
  **********************/
-
+#include "HAL/bsp_usart.h"
+static size_t println(const char *str){
+        size_t n = 0;
+        while (*str)
+        {
+            usart_send_string((uint8_t*)str++);
+            n++;
+        }
+        return n;
+    }
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
@@ -86,13 +95,16 @@ void lv_port_indev_init(void)
      * -----------------*/
 
     /*Initialize your touchpad if you have*/
+    println("1111111111111111111");
     touchpad_init();
-
+println("2222222222222222222222");
     /*Register a touchpad input device*/
     indev_touchpad = lv_indev_create();
+    println("333333333333333333333");
     lv_indev_set_type(indev_touchpad, LV_INDEV_TYPE_POINTER);
+    println("444444444444444444444444");
     lv_indev_set_read_cb(indev_touchpad, touchpad_read);
-
+println("555555555555555555555555");
     /*------------------
      * Mouse
      * -----------------*/

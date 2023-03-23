@@ -4,7 +4,8 @@
 #include "gd32f4xx_gpio.h"
 #include "gd32f4xx_rcu.h"
 #include "gd32f4xx_exmc.h"
-#include "systick.h"
+// #include "systick.h"
+#include "rtthread.h"
 
 
 

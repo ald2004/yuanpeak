@@ -71,4 +71,37 @@ namespace HAL
     bool BT_Init();
     void BT_Update();
 
+//     static void give_me_five(void)
+// {
+//     rt_kprintf("\r\n");
+//     rt_kprintf("\r\n");
+//     rt_kprintf("                  SIFIVE, INC.\r\n");
+//     rt_kprintf("\r\n");
+//     rt_kprintf("           5555555555555555555555555\r\n");
+//     rt_kprintf("          5555                   5555\r\n");
+//     rt_kprintf("         5555                     5555\r\n");
+//     rt_kprintf("        5555                       5555\r\n");
+//     rt_kprintf("       5555       5555555555555555555555\r\n");
+//     rt_kprintf("      5555       555555555555555555555555\r\n");
+//     rt_kprintf("     5555                             5555\r\n");
+//     rt_kprintf("    5555                               5555\r\n");
+//     rt_kprintf("   5555                                 5555\r\n");
+//     rt_kprintf("  5555555555555555555555555555          55555\r\n");
+//     rt_kprintf("   55555           555555555           55555\r\n");
+//     rt_kprintf("     55555           55555           55555\r\n");
+//     rt_kprintf("       55555           5           55555\r\n");
+//     rt_kprintf("         55555                   55555\r\n");
+//     rt_kprintf("           55555               55555\r\n");
+//     rt_kprintf("             55555           55555\r\n");
+//     rt_kprintf("               55555       55555\r\n");
+//     rt_kprintf("                 55555   55555\r\n");
+//     rt_kprintf("                   555555555\r\n");
+//     rt_kprintf("                     55555\r\n");
+//     rt_kprintf("                       5\r\n");
+//     rt_kprintf("\r\n");
+
+//     rt_kprintf("\r\n");
+//     rt_kprintf("               Welcome to SiFive!\r\n");
+// }
+
 }

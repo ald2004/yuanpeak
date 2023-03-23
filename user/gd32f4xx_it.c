@@ -36,7 +36,7 @@ OF SUCH DAMAGE.
 */
 
 #include "gd32f4xx_it.h"
-#include "HAL/systick.h"
+// #include "HAL/systick.h"
 
 /*!
     \brief    this function handles NMI exception
@@ -44,9 +44,9 @@ OF SUCH DAMAGE.
     \param[out] none
     \retval     none
 */
-void NMI_Handler(void)
-{
-}
+// void NMI_Handler(void)
+// {
+// }
 
 /*!
     \brief    this function handles HardFault exception
@@ -54,12 +54,12 @@ void NMI_Handler(void)
     \param[out] none
     \retval     none
 */
-void HardFault_Handler(void)
-{
-    /* if Hard Fault exception occurs, go to infinite loop */
-    while(1) {
-    }
-}
+// void HardFault_Handler(void)
+// {
+//     /* if Hard Fault exception occurs, go to infinite loop */
+//     while(1) {
+//     }
+// }
 
 /*!
     \brief    this function handles MemManage exception
@@ -67,12 +67,12 @@ void HardFault_Handler(void)
     \param[out] none
     \retval     none
 */
-void MemManage_Handler(void)
-{
-    /* if Memory Manage exception occurs, go to infinite loop */
-    while(1) {
-    }
-}
+// void MemManage_Handler(void)
+// {
+//     /* if Memory Manage exception occurs, go to infinite loop */
+//     while(1) {
+//     }
+// }
 
 /*!
     \brief    this function handles BusFault exception
@@ -80,12 +80,12 @@ void MemManage_Handler(void)
     \param[out] none
     \retval     none
 */
-void BusFault_Handler(void)
-{
-    /* if Bus Fault exception occurs, go to infinite loop */
-    while(1) {
-    }
-}
+// void BusFault_Handler(void)
+// {
+//     /* if Bus Fault exception occurs, go to infinite loop */
+//     while(1) {
+//     }
+// }
 
 /*!
     \brief    this function handles UsageFault exception
@@ -93,12 +93,12 @@ void BusFault_Handler(void)
     \param[out] none
     \retval     none
 */
-void UsageFault_Handler(void)
-{
-    /* if Usage Fault exception occurs, go to infinite loop */
-    while(1) {
-    }
-}
+// void UsageFault_Handler(void)
+// {
+//     /* if Usage Fault exception occurs, go to infinite loop */
+//     while(1) {
+//     }
+// }
 
 /*!
     \brief    this function handles SVC exception
@@ -106,9 +106,9 @@ void UsageFault_Handler(void)
     \param[out] none
     \retval     none
 */
-void SVC_Handler(void)
-{
-}
+// void SVC_Handler(void)
+// {
+// }
 
 /*!
     \brief    this function handles DebugMon exception
@@ -116,9 +116,9 @@ void SVC_Handler(void)
     \param[out] none
     \retval     none
 */
-void DebugMon_Handler(void)
-{
-}
+// void DebugMon_Handler(void)
+// {
+// }
 
 /*!
     \brief    this function handles PendSV exception
@@ -126,9 +126,9 @@ void DebugMon_Handler(void)
     \param[out] none
     \retval     none
 */
-void PendSV_Handler(void)
-{
-}
+// void PendSV_Handler(void)
+// {
+// }
 
 /*!
     \brief    this function handles SysTick exception
@@ -136,7 +136,7 @@ void PendSV_Handler(void)
     \param[out] none
     \retval     none
 */
-void SysTick_Handler(void)
-{
-   delay_decrement();
-}
+// void SysTick_Handler(void)
+// {
+//    delay_decrement();
+// }

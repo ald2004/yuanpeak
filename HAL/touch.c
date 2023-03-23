@@ -354,8 +354,9 @@ uint8_t GT1151_Init(void)
 	
 	gpio_mode_set(INT_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE,INT_PIN);
 	
-	delay_1ms(100);  
-
+	// delay_1ms(100);  
+	rt_thread_mdelay(100);
+	
 	GT1151_RD_Reg(GT_PID_REG,temp,4);//读取产品ID
 	
 	

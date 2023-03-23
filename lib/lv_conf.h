@@ -18,14 +18,15 @@
 #define LV_CONF_H
 
 #include <stdint.h>
-
+// #include "lvgl/env_support/rt-thread/lv_rt_thread_conf.h"
 /*====================
    COLOR SETTINGS
  *====================*/
 
 /*Color depth: 1 (1 byte per pixel), 8 (RGB332), 16 (RGB565), 24 (RGB888), 32 (ARGB8888)*/
 #define LV_COLOR_DEPTH 16
-
+#define LV_HOR_RES_MAX 800
+#define LV_VER_RES_MAX 480
 #define LV_COLOR_CHROMA_KEY lv_color_hex(0x00ff00)
 
 /*=========================
@@ -39,7 +40,8 @@
     #define LV_MEM_SIZE (48U * 1024U)          /*[bytes]*/
 
     /*Size of the memory expand for `lv_malloc()` in bytes*/
-    #define LV_MEM_POOL_EXPAND_SIZE 0
+    // #define LV_MEM_POOL_EXPAND_SIZE 0
+    #define LV_MEM_POOL_EXPAND_SIZE (48U * 1024U) 
 
     /*Set an address for the memory pool instead of allocating it as a normal array. Can be in external SRAM too.*/
     #define LV_MEM_ADR 0     /*0: unused*/
@@ -65,6 +67,12 @@
 #define LV_MALLOC       lv_malloc_builtin
 #define LV_REALLOC      lv_realloc_builtin
 #define LV_FREE         lv_free_builtin
+
+// #define LV_MALLOC       rt_malloc
+// #define LV_REALLOC      lv_realloc_builtin
+// #define LV_FREE         rt_free
+
+
 #define LV_MEMSET       lv_memset_builtin
 #define LV_MEMCPY       lv_memcpy_builtin
 #define LV_SNPRINTF     lv_snprintf_builtin
@@ -86,11 +94,11 @@
 
 /*Use a custom tick source that tells the elapsed time in milliseconds.
  *It removes the need to manually update the tick with `lv_tick_inc()`)*/
-#define LV_TICK_CUSTOM 0
+#define LV_TICK_CUSTOM 1
 #if LV_TICK_CUSTOM
     // #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
-    #define LV_TICK_CUSTOM_INCLUDE "platform_systick"
-    #define LV_TICK_CUSTOM_SYS_TIME_EXPR (get_systick_ms())    /*Expression evaluating to current system time in ms*/
+    #define LV_TICK_CUSTOM_INCLUDE "rtthread.h"
+    #define LV_TICK_CUSTOM_SYS_TIME_EXPR (rt_tick_get())    /*Expression evaluating to current system time in ms*/
     /*If using lvgl as ESP32 component*/
     // #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
     // #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
@@ -296,7 +304,7 @@
 
 /*Maximum buffer size to allocate for rotation.
  *Only used if software rotation is enabled in the display driver.*/
-#define LV_DISP_ROT_MAX_BUF (10*1024)
+#define LV_DISP_ROT_MAX_BUF (20*1024)
 
 /*Garbage Collector settings
  *Used if lvgl is bound to higher level language and the memory is managed by that language*/
@@ -535,7 +543,8 @@
 #define LV_USE_SPAN       1
 #if LV_USE_SPAN
     /*A line text can contain maximum num of span descriptor */
-    #define LV_SPAN_SNIPPET_STACK_SIZE 64
+    // #define LV_SPAN_SNIPPET_STACK_SIZE 64
+    #define LV_SPAN_SNIPPET_STACK_SIZE 10240
 #endif
 
 #define LV_USE_SPINBOX    1
@@ -792,7 +801,7 @@
 #endif
 
 /*Stress test for LVGL*/
-#define LV_USE_DEMO_STRESS 0
+#define LV_USE_DEMO_STRESS 1
 
 /*Music player demo*/
 #define LV_USE_DEMO_MUSIC 0

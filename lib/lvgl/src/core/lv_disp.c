@@ -62,7 +62,16 @@ static bool is_out_anim(lv_scr_load_anim_t a);
  *  STATIC VARIABLES
  **********************/
 static lv_disp_t * disp_def;
-
+// #include "HAL/bsp_usart.h"
+// static size_t println(const char *str){
+//         size_t n = 0;
+//         while (*str)
+//         {
+//             usart_send_string((uint8_t*)str++);
+//             n++;
+//         }
+//         return n;
+//     }
 /**********************
  *      MACROS
  **********************/
@@ -73,12 +82,15 @@ static lv_disp_t * disp_def;
 
 lv_disp_t * lv_disp_create(lv_coord_t hor_res, lv_coord_t ver_res)
 {
+    // println("aaaaaaaaa");
     lv_disp_t * disp = _lv_ll_ins_head(&LV_GC_ROOT(_lv_disp_ll));
+    // println("bbbbbbbbbbbbbbb");
     LV_ASSERT_MALLOC(disp);
+    // println("ccccccccccccccccc");
     if(!disp) return NULL;
-
+// println("dddddddddddddddddddd");
     lv_memzero(disp, sizeof(lv_disp_t));
-
+// println("eeeeeeeeeeeeeeeeeeee");
     disp->hor_res          = hor_res;
     disp->ver_res          = ver_res;
     disp->physical_hor_res = -1;
@@ -88,7 +100,7 @@ lv_disp_t * lv_disp_create(lv_coord_t hor_res, lv_coord_t ver_res)
     disp->antialiasing     = LV_COLOR_DEPTH > 8 ? 1 : 0;
     disp->dpi              = LV_DPI_DEF;
     disp->color_chroma_key = LV_COLOR_CHROMA_KEY;
-
+// println("ffffffffffffffffff");
 #if LV_USE_GPU_STM32_DMA2D
     lv_disp_set_draw_ctx(disp, lv_draw_stm32_dma2d_ctx_init, lv_draw_stm32_dma2d_ctx_deinit,
                          sizeof(lv_draw_stm32_dma2d_ctx_t));
@@ -104,7 +116,7 @@ lv_disp_t * lv_disp_create(lv_coord_t hor_res, lv_coord_t ver_res)
 #else
     lv_disp_set_draw_ctx(disp, lv_draw_sw_init_ctx, lv_draw_sw_deinit_ctx, sizeof(lv_draw_sw_ctx_t));
 #endif
-
+// println("gggggggggggg");
     disp->draw_ctx->color_format = LV_COLOR_FORMAT_NATIVE;
 
     disp->inv_en_cnt = 1;
@@ -112,10 +124,14 @@ lv_disp_t * lv_disp_create(lv_coord_t hor_res, lv_coord_t ver_res)
     lv_disp_t * disp_def_tmp = disp_def;
     disp_def                 = disp; /*Temporarily change the default screen to create the default screens on the
                                         new display*/
+// println("hhhhhhhhhhhhhh");
     /*Create a refresh timer*/
     disp->refr_timer = lv_timer_create(_lv_disp_refr_timer, LV_DEF_REFR_PERIOD, disp);
+    // println("iiiiiiiiiiiiii");
     LV_ASSERT_MALLOC(disp->refr_timer);
+    // println("jjjjjjjjjjjjjjj");
     if(disp->refr_timer == NULL) {
+        // println("kkkkkkkkkkkkkk");
         lv_free(disp);
         return NULL;
     }

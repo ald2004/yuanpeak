@@ -25,7 +25,7 @@
     #warning Please define or replace the macro MY_DISP_HOR_RES with the actual screen height, default value 240 is used for now.
     #define MY_DISP_VER_RES    240
 #endif
-
+lv_disp_t * disp;
 /**********************
  *      TYPEDEFS
  **********************/
@@ -36,11 +36,32 @@
 static void disp_init(void);
 
 static void disp_flush(lv_disp_t * disp, const lv_area_t * area, lv_color_t * color_p);
+static int32_t            x1_flush;
+static int32_t            y1_flush;
+static int32_t            x2_flush;
+static int32_t            y2_fill;
+static int32_t            y_fill_act;
+static const lv_color_t *buf_to_flush;
+static lv_disp_t *our_disp = NULL;
+static lv_disp_t disp_drv;
+extern uint16_t *my_fb;
+#define LCD_FRAME_BUF_ADDR          0XC0000000
+#define COLOR_BUF_SIZE (LV_HOR_RES_MAX*LV_VER_RES_MAX)
+#define TLI_LCD_FRAMEBUF_SIZE      (COLOR_BUF_SIZE*2)
 
 /**********************
  *  STATIC VARIABLES
  **********************/
-
+// #include "HAL/bsp_usart.h"
+// static size_t println(const char *str){
+//         size_t n = 0;
+//         while (*str)
+//         {
+//             usart_send_string((uint8_t*)str++);
+//             n++;
+//         }
+//         return n;
+//     }
 /**********************
  *      MACROS
  **********************/
@@ -55,18 +76,20 @@ void lv_port_disp_init(void)
      * Initialize your display
      * -----------------------*/
     disp_init();
-
+    
     /*------------------------------------
      * Create a display and set a flush_cb
      * -----------------------------------*/
     lv_disp_t * disp = lv_disp_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
+    rt_kprintf("1111111111111111");
+    // println("22222222222222222222");
     lv_disp_set_flush_cb(disp, disp_flush);
-
+// println("3333333333333333");
     /* Example 1
      * One buffer for partial rendering*/
     static lv_color_t buf_1_1[MY_DISP_HOR_RES * 10];                          /*A buffer for 10 rows*/
     lv_disp_set_draw_buffers(disp, buf_1_1, NULL, sizeof(buf_1_1), LV_DISP_RENDER_MODE_PARTIAL);
-
+// println("444444444444444444444444444444");
     /* Example 2
      * Two buffers for partial rendering
      * In flush_cb DMA or similar hardware should be used to update the display in the background.*/
@@ -100,13 +123,13 @@ static void disp_init(void)
     LCD_Init(); //显示屏初始化代码
     
     POINT_COLOR=POINT[4];
-    BACK_COLOR=BACK[4];
+    BACK_COLOR=BACK[0];
     LCD_Clear(BACK[4]);
     // LCD_ShowString(30,50,480,80,24,1,"https://lckfb.com");
     // LCD_ShowString(30,80,480,110,24,1,lcd_id);
     // LCD_ShowString(30,110,480,140,24,1,"touch test....");
     LCD_Scan_Dir(D2U_L2R);
-    
+    rt_kprintf("disp_init finish.");
 }
 
 volatile bool disp_flush_enabled = true;

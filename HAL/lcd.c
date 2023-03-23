@@ -198,17 +198,22 @@ uint16_t  LCD_ReadReg(uint16_t  LCD_Reg)
 ///////////////LCD-ID////////////////
 void LcdNT35510ReadID(void) //20180510//OK20180510
 {
-    delay_1ms(50);
+    // delay_1ms(50);
+	rt_thread_mdelay(50);
     LCD_WriteReg(0x0000,0x0001); 
-    delay_1ms(50); // delay 50 ms 
+    // delay_1ms(50); // delay 50 ms 
+	rt_thread_mdelay(50);
     lcddev.id = LCD_ReadReg(0x0000); 
     //读取前需进行复位才能准确读到
     LCD_RST_ON;
-    delay_1ms(10);
+    // delay_1ms(10);
+	rt_thread_mdelay(10);
     LCD_RST_OFF;
-    delay_1ms(50);
+    // delay_1ms(50);
+	rt_thread_mdelay(50);
     LCD_RST_ON;
-    delay_1ms(120);
+    // delay_1ms(120);
+	rt_thread_mdelay(120);
     /* NT35510 */
     LCD_WR_REG(0XDA00);	//read ID1
     lcddev.id=LCD_RD_DATA();		//读回0X00	 
@@ -217,7 +222,7 @@ void LcdNT35510ReadID(void) //20180510//OK20180510
     lcddev.id<<=8;	
     LCD_WR_REG(0XDC00);	// read ID3
     lcddev.id|=LCD_RD_DATA();		//读回0X00		
-    printf("NT35510 LCD ID:%04X\r\n",lcddev.id);	
+    rt_kprintf("NT35510 LCD ID:%04X\r\n",lcddev.id);	
     sprintf((char*)lcd_id,"LCD ID:%04X",lcddev.id);//将LCD ID打印到lcd_id数组	
 }
 
@@ -648,8 +653,11 @@ void NT35510_HY35_Initial_Code(void)   ///黄仕周代码20200803
 		LCD_WriteReg(0x3A00,0x55);  //16-bit/pixel
 				
 		LCD_WR_REG(0x1100);
-		delay_1ms(120);
+		// delay_1ms(120);
+		rt_thread_mdelay(120);
 		LCD_WR_REG(0x2900);
+
+		rt_kprintf("NT35510_HY35_Initial_Code finish.");
 }
 
 /**********************************************
@@ -753,6 +761,7 @@ void LCD_Scan_Dir(uint8_t dir)
     LCD_WR_REG(lcddev.setycmd+1);LCD_WR_DATA(0); 
     LCD_WR_REG(lcddev.setycmd+2);LCD_WR_DATA((lcddev.height-1)>>8); 
     LCD_WR_REG(lcddev.setycmd+3);LCD_WR_DATA((lcddev.height-1)&0XFF);
+	rt_kprintf("LCD_Scan_Dir finish.");
 }
 
 //屏幕初始化

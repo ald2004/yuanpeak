@@ -34,6 +34,7 @@ void usart_gpio_config(uint32_t band_rate)
 
 void usart_send_data(uint8_t ucch)
 {
+	//#define USART0                        (USART_BASE+0x0000CC00U)       /*!< USART0 base address */
 	usart_data_transmit(BSP_USART,(uint8_t)ucch);
 	while(RESET == usart_flag_get(BSP_USART,USART_FLAG_TBE));
 }

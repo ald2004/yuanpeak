@@ -10,6 +10,8 @@
 
 #ifndef LV_RT_THREAD_CONF_H
 #define LV_RT_THREAD_CONF_H
+// #define __RTTHREAD__
+// #define RT_USING_HEAP
 
 #ifdef __RTTHREAD__
 
@@ -32,9 +34,10 @@
    HAL SETTINGS
  *====================*/
 
-#define LV_TICK_CUSTOM 1
+#define LV_TICK_CUSTOM 0
 #define LV_TICK_CUSTOM_INCLUDE LV_RTTHREAD_INCLUDE
 #define LV_TICK_CUSTOM_SYS_TIME_EXPR (rt_tick_get_millisecond())    /*Expression evaluating to current system time in ms*/
+// #define LV_TICK_CUSTOM_SYS_TIME_EXPR (rt_tick_get())  
 
 /*=======================
  * FEATURE CONFIGURATION

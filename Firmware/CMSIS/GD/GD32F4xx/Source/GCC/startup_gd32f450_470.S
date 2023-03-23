@@ -57,7 +57,8 @@ LoopFillZerobss:
 /* Call into static constructors (C++) */
   bl __libc_init_array
 /* Call the application's entry point.*/
-  bl  main
+  /* bl  main */
+  bl entry
   bx  lr    
 .size  Reset_Handler, .-Reset_Handler
 
