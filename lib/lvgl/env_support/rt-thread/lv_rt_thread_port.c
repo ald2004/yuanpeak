@@ -8,7 +8,7 @@
  * 2021-10-18     Meco Man     the first version
  * 2022-05-10     Meco Man     improve rt-thread initialization process
  */
-
+#include "lv_rt_thread_conf.h"
 #ifdef __RTTHREAD__
 
 #include <lvgl.h>

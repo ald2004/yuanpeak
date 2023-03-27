@@ -10,11 +10,10 @@
  */
  
 #include <stdint.h>
-#include <rthw.h>
+// #include <rthw.h>
 #include <rtthread.h>
-// #include "board.h"
+#include "board.h"
 #include <gd32f4xx.h>
-
 #define _SCB_BASE       (0xE000E010UL)
 #define _SYSTICK_CTRL   (*(rt_uint32_t *)(_SCB_BASE + 0x0))
 #define _SYSTICK_LOAD   (*(rt_uint32_t *)(_SCB_BASE + 0x4))
@@ -47,18 +46,18 @@ static uint32_t _SysTick_Config(rt_uint32_t ticks)
 }
 
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
-#define RT_HEAP_SIZE 1024*20
-static uint32_t rt_heap[RT_HEAP_SIZE];     // heap default size: 4K(1024 * 4)
+// #define RT_HEAP_SIZE 1024*20
+// static uint32_t rt_heap[RT_HEAP_SIZE];     // heap default size: 4K(1024 * 4)
 RT_WEAK void *rt_heap_begin_get(void)
 {
-    return rt_heap;
-    // return HEAP_BEGIN;
+    // return rt_heap;
+    return HEAP_BEGIN;
 }
 
 RT_WEAK void *rt_heap_end_get(void)
 {
-    return rt_heap + RT_HEAP_SIZE;
-    // return HEAP_END;
+    // return rt_heap + RT_HEAP_SIZE;
+    return HEAP_END;
 }
 #endif
 
@@ -71,8 +70,9 @@ void rt_hw_board_init()
     // SystemCoreClockUpdate();
     // SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
     /* System Tick Configuration */
-    _SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
-
+    // _SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
+    SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
+    NVIC_SetPriority(SysTick_IRQn, 0);
     /* Call components board initial (use INIT_BOARD_EXPORT()) */
 #ifdef RT_USING_COMPONENTS_INIT
     rt_components_board_init();

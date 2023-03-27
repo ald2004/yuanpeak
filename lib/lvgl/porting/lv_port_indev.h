@@ -1,3 +1,4 @@
+#if 0
 #pragma once 
 
 #ifdef __cplusplus
@@ -13,7 +14,7 @@ extern "C" {
 #else
 #include "lvgl/lvgl.h"
 #endif
-#include "HAL/touch.h"
+// #include "HAL/touch.h"
 
 /*********************
  *      DEFINES
@@ -26,7 +27,7 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void lv_port_indev_init(void);
+// void lv_port_indev_init(void);
 
 /**********************
  *      MACROS
@@ -34,4 +35,6 @@ void lv_port_indev_init(void);
 
 #ifdef __cplusplus
 } /*extern "C"*/
+#endif
+
 #endif

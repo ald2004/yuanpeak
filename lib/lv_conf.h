@@ -64,13 +64,13 @@
 #define LV_STDLIB_INCLUDE <stdint.h>
 #define LV_STDIO_INCLUDE  <stdint.h>
 #define LV_STRING_INCLUDE <stdint.h>
-#define LV_MALLOC       lv_malloc_builtin
-#define LV_REALLOC      lv_realloc_builtin
-#define LV_FREE         lv_free_builtin
-
-// #define LV_MALLOC       rt_malloc
+// #define LV_MALLOC       lv_malloc_builtin
 // #define LV_REALLOC      lv_realloc_builtin
-// #define LV_FREE         rt_free
+// #define LV_FREE         lv_free_builtin
+
+#define LV_MALLOC       rt_malloc
+#define LV_REALLOC      rt_realloc
+#define LV_FREE         rt_free
 
 
 #define LV_MEMSET       lv_memset_builtin
@@ -94,11 +94,11 @@
 
 /*Use a custom tick source that tells the elapsed time in milliseconds.
  *It removes the need to manually update the tick with `lv_tick_inc()`)*/
-#define LV_TICK_CUSTOM 1
+#define LV_TICK_CUSTOM 0
 #if LV_TICK_CUSTOM
     // #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
     #define LV_TICK_CUSTOM_INCLUDE "rtthread.h"
-    #define LV_TICK_CUSTOM_SYS_TIME_EXPR (rt_tick_get())    /*Expression evaluating to current system time in ms*/
+    #define LV_TICK_CUSTOM_SYS_TIME_EXPR (rt_tick_get()/RT_TICK_PER_SECOND)    /*Expression evaluating to current system time in ms*/
     /*If using lvgl as ESP32 component*/
     // #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
     // #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
@@ -233,7 +233,7 @@
  *-----------*/
 
 /*Enable the log module*/
-#define LV_USE_LOG 0
+#define LV_USE_LOG 1
 #if LV_USE_LOG
 
     /*How important log should be added:

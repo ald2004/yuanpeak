@@ -1,155 +1,265 @@
-/* RT-Thread config file */
+#pragma once
 
-#ifndef __RTTHREAD_CFG_H__
-#define __RTTHREAD_CFG_H__
+#define RT_NAME_MAX 8
+#define RT_ALIGN_SIZE 8
+#define RT_THREAD_PRIORITY_32
+#define RT_THREAD_PRIORITY_MAX 32
+#define RT_TICK_PER_SECOND 1000
+#define RT_USING_OVERFLOW_CHECK
+#define RT_USING_HOOK
+#define RT_HOOK_USING_FUNC_PTR
+#define RT_USING_IDLE_HOOK
+#define RT_IDLE_HOOK_LIST_SIZE 4
+#define IDLE_THREAD_STACK_SIZE 256
 
-#include <rtthread.h>
-#if defined(__CC_ARM) || defined(__CLANG_ARM)
-#include "RTE_Components.h"
+/* kservice optimization */
 
-#if defined(RTE_USING_FINSH)
-#define RT_USING_FINSH
-#endif //RTE_USING_FINSH
+#define RT_DEBUG
+#define RT_DEBUG_COLOR
 
-#endif //(__CC_ARM) || (__CLANG_ARM)
+/* Inter-Thread communication */
 
-// <<< Use Configuration Wizard in Context Menu >>>
-// <h>Basic Configuration
-// <o>Maximal level of thread priority <8-256>
-//  <i>Default: 32
-#define RT_THREAD_PRIORITY_MAX  8
-// <o>OS tick per second
-//  <i>Default: 1000   (1ms)
-#define RT_TICK_PER_SECOND  1000
-// <o>Alignment size for CPU architecture data access
-//  <i>Default: 4
-#define RT_ALIGN_SIZE   4
-// <o>the max length of object name<2-16>
-//  <i>Default: 8
-#define RT_NAME_MAX    8
-// <c1>Using RT-Thread components initialization
-//  <i>Using RT-Thread components initialization
-#define RT_USING_COMPONENTS_INIT
-// </c>
-
-#define RT_USING_USER_MAIN
-
-// <o>the stack size of main thread<1-4086>
-//  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE     256
-
-// </h>
-
-// <h>Debug Configuration
-// <c1>enable kernel debug configuration
-//  <i>Default: enable kernel debug configuration
-//#define RT_DEBUG
-// </c>
-// <o>enable components initialization debug configuration<0-1>
-//  <i>Default: 0
-#define RT_DEBUG_INIT 0
-// <c1>thread stack over flow detect
-//  <i> Diable Thread stack over flow detect
-//#define RT_USING_OVERFLOW_CHECK
-// </c>
-// </h>
-
-// <h>Hook Configuration
-// <c1>using hook
-//  <i>using hook
-//#define RT_USING_HOOK
-// </c>
-// <c1>using idle hook
-//  <i>using idle hook
-//#define RT_USING_IDLE_HOOK
-// </c>
-// </h>
-
-// <e>Software timers Configuration
-// <i> Enables user timers
-#define RT_USING_TIMER_SOFT         0
-#if RT_USING_TIMER_SOFT == 0
-    #undef RT_USING_TIMER_SOFT
-#endif
-// <o>The priority level of timer thread <0-31>
-//  <i>Default: 4
-#define RT_TIMER_THREAD_PRIO        4
-// <o>The stack size of timer thread <0-8192>
-//  <i>Default: 512
-#define RT_TIMER_THREAD_STACK_SIZE  512
-// </e>
-
-// <h>IPC(Inter-process communication) Configuration
-// <c1>Using Semaphore
-//  <i>Using Semaphore
 #define RT_USING_SEMAPHORE
-// </c>
-// <c1>Using Mutex
-//  <i>Using Mutex
-//#define RT_USING_MUTEX
-// </c>
-// <c1>Using Event
-//  <i>Using Event
-//#define RT_USING_EVENT
-// </c>
-// <c1>Using MailBox
-//  <i>Using MailBox
+#define RT_USING_MUTEX
+#define RT_USING_EVENT
 #define RT_USING_MAILBOX
-// </c>
-// <c1>Using Message Queue
-//  <i>Using Message Queue
-//#define RT_USING_MESSAGEQUEUE
-// </c>
-// </h>
+#define RT_USING_MESSAGEQUEUE
 
-// <h>Memory Management Configuration
-// <c1>Dynamic Heap Management
-//  <i>Dynamic Heap Management
-// #define RT_USING_HEAP
-// </c>
-// <c1>using small memory
-//  <i>using small memory
+/* Memory Management */
+
+#define RT_USING_MEMPOOL
 #define RT_USING_SMALL_MEM
-// </c>
-// <c1>using tiny size of memory
-//  <i>using tiny size of memory
-//#define RT_USING_TINY_SIZE
-// </c>
-// </h>
+#define RT_USING_SMALL_MEM_AS_HEAP
+#define RT_USING_HEAP
 
-// <h>Console Configuration
-// <c1>Using console
-//  <i>Using console
+/* Kernel Device Object */
+
+// #define RT_USING_DEVICE
 #define RT_USING_CONSOLE
-// </c>
-// <o>the buffer size of console <1-1024>
-//  <i>the buffer size of console
-//  <i>Default: 128  (128Byte)
-#define RT_CONSOLEBUF_SIZE          128
-// </h>
+#define RT_CONSOLEBUF_SIZE 128
+#define RT_CONSOLE_DEVICE_NAME "uart0"
+#define RT_VER_NUM 0x40101
 
-#if defined(RT_USING_FINSH)
-    #define FINSH_USING_MSH
-    #define FINSH_USING_MSH_ONLY
-    // <h>Finsh Configuration
-    // <o>the priority of finsh thread <1-7>
-    //  <i>the priority of finsh thread
-    //  <i>Default: 6
-    #define __FINSH_THREAD_PRIORITY     5
-    #define FINSH_THREAD_PRIORITY       (RT_THREAD_PRIORITY_MAX / 8 * __FINSH_THREAD_PRIORITY + 1)
-    // <o>the stack of finsh thread <1-4096>
-    //  <i>the stack of finsh thread
-    //  <i>Default: 4096  (4096Byte)
-    #define FINSH_THREAD_STACK_SIZE     512
-    // <o>the history lines of finsh thread <1-32>
-    //  <i>the history lines of finsh thread
-    //  <i>Default: 5
-    #define FINSH_HISTORY_LINES         1
+/* RT-Thread Components */
 
-    #define FINSH_USING_SYMTAB
-    // </h>
-#endif
+#define RT_USING_COMPONENTS_INIT
+#define RT_USING_USER_MAIN
+#define RT_MAIN_THREAD_STACK_SIZE 2048
+#define RT_MAIN_THREAD_PRIORITY 10
+#define RT_USING_MSH
+// #define RT_USING_FINSH
+#define FINSH_USING_MSH
+#define FINSH_THREAD_NAME "tshell"
+#define FINSH_THREAD_PRIORITY 20
+#define FINSH_THREAD_STACK_SIZE 4096
+#define FINSH_USING_HISTORY
+#define FINSH_HISTORY_LINES 5
+#define FINSH_USING_SYMTAB
+#define FINSH_CMD_SIZE 80
+#define MSH_USING_BUILT_IN_COMMANDS
+#define FINSH_USING_DESCRIPTION
+#define FINSH_ARG_MAX 10
+#define RT_USING_DFS
+#define DFS_USING_POSIX
+#define DFS_USING_WORKDIR
+#define DFS_FILESYSTEMS_MAX 4
+#define DFS_FILESYSTEM_TYPES_MAX 4
+#define DFS_FD_MAX 16
+#define RT_USING_DFS_ELMFAT
 
-// <<< end of configuration section >>>
+/* elm-chan's FatFs, Generic FAT Filesystem Module */
 
-#endif
+#define RT_DFS_ELM_CODE_PAGE 437
+#define RT_DFS_ELM_WORD_ACCESS
+#define RT_DFS_ELM_USE_LFN_0
+#define RT_DFS_ELM_USE_LFN 0
+#define RT_DFS_ELM_LFN_UNICODE_0
+#define RT_DFS_ELM_LFN_UNICODE 0
+#define RT_DFS_ELM_MAX_LFN 255
+#define RT_DFS_ELM_DRIVES 2
+#define RT_DFS_ELM_MAX_SECTOR_SIZE 512
+#define RT_DFS_ELM_REENTRANT
+#define RT_DFS_ELM_MUTEX_TIMEOUT 3000
+#define RT_USING_DFS_DEVFS
+
+/* Device Drivers */
+
+#define RT_USING_DEVICE_IPC
+#define RT_USING_SYSTEM_WORKQUEUE
+#define RT_SYSTEM_WORKQUEUE_STACKSIZE 2048
+#define RT_SYSTEM_WORKQUEUE_PRIORITY 23
+#define RT_USING_SERIAL
+#define RT_USING_SERIAL_V1
+#define RT_SERIAL_USING_DMA
+#define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_PIN
+
+/* Using USB */
+
+
+/* C/C++ and POSIX layer */
+
+#define RT_LIBC_DEFAULT_TIMEZONE 8
+
+/* POSIX (Portable Operating System Interface) layer */
+
+#define RT_USING_POSIX_FS
+#define RT_USING_POSIX_POLL
+#define RT_USING_POSIX_SELECT
+
+/* Interprocess Communication (IPC) */
+
+
+/* Socket is in the 'Network' category */
+
+
+/* Network */
+
+#define RT_USING_SAL
+#define SAL_INTERNET_CHECK
+
+/* Docking with protocol stacks */
+
+#define SAL_USING_LWIP
+#define SAL_USING_POSIX
+#define RT_USING_NETDEV
+#define NETDEV_USING_IFCONFIG
+#define NETDEV_USING_PING
+#define NETDEV_USING_NETSTAT
+#define NETDEV_USING_AUTO_DEFAULT
+#define NETDEV_IPV4 1
+#define NETDEV_IPV6 0
+#define RT_USING_LWIP
+#define RT_USING_LWIP203
+#define RT_USING_LWIP_VER_NUM 0x20003
+#define RT_LWIP_MEM_ALIGNMENT 4
+#define RT_LWIP_IGMP
+#define RT_LWIP_ICMP
+#define RT_LWIP_DNS
+#define RT_LWIP_DHCP
+#define IP_SOF_BROADCAST 1
+#define IP_SOF_BROADCAST_RECV 1
+
+/* Static IPv4 Address */
+
+#define RT_LWIP_IPADDR "192.168.1.30"
+#define RT_LWIP_GWADDR "192.168.1.1"
+#define RT_LWIP_MSKADDR "255.255.255.0"
+#define RT_LWIP_UDP
+#define RT_LWIP_TCP
+#define RT_LWIP_RAW
+#define RT_MEMP_NUM_NETCONN 8
+#define RT_LWIP_PBUF_NUM 16
+#define RT_LWIP_RAW_PCB_NUM 4
+#define RT_LWIP_UDP_PCB_NUM 4
+#define RT_LWIP_TCP_PCB_NUM 4
+#define RT_LWIP_TCP_SEG_NUM 40
+#define RT_LWIP_TCP_SND_BUF 8196
+#define RT_LWIP_TCP_WND 8196
+#define RT_LWIP_TCPTHREAD_PRIORITY 10
+#define RT_LWIP_TCPTHREAD_MBOX_SIZE 8
+#define RT_LWIP_TCPTHREAD_STACKSIZE 1024
+#define RT_LWIP_ETHTHREAD_PRIORITY 12
+#define RT_LWIP_ETHTHREAD_STACKSIZE 1024
+#define RT_LWIP_ETHTHREAD_MBOX_SIZE 8
+#define LWIP_NETIF_STATUS_CALLBACK 1
+#define LWIP_NETIF_LINK_CALLBACK 1
+#define SO_REUSE 1
+#define LWIP_SO_RCVTIMEO 1
+#define LWIP_SO_SNDTIMEO 1
+#define LWIP_SO_RCVBUF 1
+#define LWIP_SO_LINGER 0
+#define LWIP_NETIF_LOOPBACK 0
+#define RT_LWIP_USING_PING
+
+/* Utilities */
+
+
+/* RT-Thread Utestcases */
+
+
+/* RT-Thread online packages */
+
+/* IoT - internet of things */
+
+
+/* Wi-Fi */
+
+/* Marvell WiFi */
+
+
+/* Wiced WiFi */
+
+
+/* IoT Cloud */
+
+
+/* security packages */
+
+
+/* language packages */
+
+/* JSON: JavaScript Object Notation, a lightweight data-interchange format */
+
+
+/* XML: Extensible Markup Language */
+
+
+/* multimedia packages */
+
+/* LVGL: powerful and easy-to-use embedded GUI library */
+
+
+/* u8g2: a monochrome graphic library */
+
+
+/* PainterEngine: A cross-platform graphics application framework written in C language */
+
+
+/* tools packages */
+
+
+/* system packages */
+
+/* enhanced kernel services */
+
+
+/* acceleration: Assembly language or algorithmic acceleration packages */
+
+
+/* CMSIS: ARM Cortex-M Microcontroller Software Interface Standard */
+
+
+/* Micrium: Micrium software products porting for RT-Thread */
+
+
+/* peripheral libraries and drivers */
+
+
+/* Kendryte SDK */
+
+
+/* AI packages */
+
+
+/* miscellaneous packages */
+
+/* project laboratory */
+
+/* samples: kernel and components samples */
+
+
+/* entertainment: terminal games and other interesting software packages */
+
+
+/* Privated Packages of RealThread */
+
+
+/* Network Utilities */
+
+
+/* RT-Thread Smart */
+
+#define SOC_GD32450Z
+#define BSP_USING_SDRAM
+#define BSP_USING_UART0

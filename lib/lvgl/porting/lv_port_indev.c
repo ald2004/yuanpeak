@@ -4,7 +4,7 @@
  */
 
 /*Copy this file as "lv_port_indev.c" and set this value to "1" to enable content*/
-#if 1
+#if 0
 
 /*********************
  *      INCLUDES
@@ -61,16 +61,6 @@ lv_indev_t * indev_touchpad;
 /**********************
  *      MACROS
  **********************/
-#include "HAL/bsp_usart.h"
-static size_t println(const char *str){
-        size_t n = 0;
-        while (*str)
-        {
-            usart_send_string((uint8_t*)str++);
-            n++;
-        }
-        return n;
-    }
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/

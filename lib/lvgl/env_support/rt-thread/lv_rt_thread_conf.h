@@ -10,8 +10,8 @@
 
 #ifndef LV_RT_THREAD_CONF_H
 #define LV_RT_THREAD_CONF_H
-// #define __RTTHREAD__
-// #define RT_USING_HEAP
+#define __RTTHREAD__
+#define RT_USING_HEAP
 
 #ifdef __RTTHREAD__
 

@@ -36,18 +36,18 @@ lv_disp_t * disp;
 static void disp_init(void);
 
 static void disp_flush(lv_disp_t * disp, const lv_area_t * area, lv_color_t * color_p);
-static int32_t            x1_flush;
-static int32_t            y1_flush;
-static int32_t            x2_flush;
-static int32_t            y2_fill;
-static int32_t            y_fill_act;
-static const lv_color_t *buf_to_flush;
-static lv_disp_t *our_disp = NULL;
-static lv_disp_t disp_drv;
-extern uint16_t *my_fb;
-#define LCD_FRAME_BUF_ADDR          0XC0000000
-#define COLOR_BUF_SIZE (LV_HOR_RES_MAX*LV_VER_RES_MAX)
-#define TLI_LCD_FRAMEBUF_SIZE      (COLOR_BUF_SIZE*2)
+// static int32_t            x1_flush;
+// static int32_t            y1_flush;
+// static int32_t            x2_flush;
+// static int32_t            y2_fill;
+// static int32_t            y_fill_act;
+// static const lv_color_t *buf_to_flush;
+// static lv_disp_t *our_disp = NULL;
+// static lv_disp_t disp_drv;
+// extern uint16_t *my_fb;
+// #define LCD_FRAME_BUF_ADDR          0XC0000000
+// #define COLOR_BUF_SIZE (LV_HOR_RES_MAX*LV_VER_RES_MAX)
+// #define TLI_LCD_FRAMEBUF_SIZE      (COLOR_BUF_SIZE*2)
 
 /**********************
  *  STATIC VARIABLES

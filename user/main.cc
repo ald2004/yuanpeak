@@ -6,12 +6,13 @@ extern "C" {
 // #include "gd32f4xx.h"
 
 // #include "HAL/systick.h"
-#include <stdio.h>
-#include <rtthread.h>
+// #include <stdio.h>
+// #include <rtthread.h>
 // #include "HAL/bsp_usart.h"
 // #include "lv_demos.h"
 // #include "lib/lvgl/lvgl.h"
 // #include <rtdevice.h>
+#include "mythread.h"
 #ifdef __cplusplus
 }
 #endif
@@ -30,10 +31,12 @@ int main(void){
     // key_init();
     HAL::Init();
     // displayinit();
+    // rt_mythread_init();
+    lvgl_thread_init();
     rt_kprintl("new wet :%d",333);
-    // while(1) {
-    //     Serial::println(".");
-    //     rt_thread_mdelay(1000);
+    while(1) {
+        Serial::println("-");
+        rt_thread_mdelay(1000);
     //     // rt_kprintf("now we get tick :%d \r\n",rt_tick_get()/RT_TICK_PER_SECOND);
     //     // GT1151_Scan(0);
     //     // for (t = 0; t < CT_MAX_TOUCH; t++) 
@@ -60,5 +63,5 @@ int main(void){
     //     //     else  lastpos[t][0] = 0XFFFF;
     //     // }
     //     // delay_1ms(1);
-    // }
+    }
 }

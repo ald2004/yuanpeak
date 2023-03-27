@@ -14,6 +14,9 @@
 
 #include <gd32f4xx.h>
 
+#define EXT_SDRAM_BEGIN    (0xC0000000U) /* the begining address of external SDRAM */
+#define EXT_SDRAM_END      (EXT_SDRAM_BEGIN + (32U * 1024 * 1024)) /* the end address of external SDRAM */
+
 // <o> Internal SRAM memory size[Kbytes] <8-64>
 //  <i>Default: 64
 #ifdef __ICCARM__
@@ -21,19 +24,19 @@
 extern char __ICFEDIT_region_RAM_end__;
 #define GD32_SRAM_END          &__ICFEDIT_region_RAM_end__
 #else
-#define GD32_SRAM_SIZE         8
+#define GD32_SRAM_SIZE         128
 #define GD32_SRAM_END          (0x20000000 + GD32_SRAM_SIZE * 1024)
 #endif
 
-#if defined(__CC_ARM) || defined(__CLANG_ARM)
+#ifdef __CC_ARM
 extern int Image$$RW_IRAM1$$ZI$$Limit;
 #define HEAP_BEGIN    (&Image$$RW_IRAM1$$ZI$$Limit)
 #elif __ICCARM__
 #pragma section="HEAP"
 #define HEAP_BEGIN    (__segment_end("HEAP"))
 #else
-extern int __bss_end;
-#define HEAP_BEGIN    (&__bss_end)
+extern int __bss_end__;
+#define HEAP_BEGIN    (&__bss_end__)
 #endif
 
 #define HEAP_END          GD32_SRAM_END
