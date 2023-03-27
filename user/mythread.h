@@ -71,7 +71,7 @@ static void lvgl_thread_entry(void *parameter)
     /* handle the tasks of LVGL */
     while(1)
     {
-        lv_tick_inc(1);
+        // lv_tick_inc(1);
         lv_task_handler();
         rt_thread_mdelay(PKG_LVGL_DISP_REFR_PERIOD);
     }
