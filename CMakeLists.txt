@@ -198,14 +198,14 @@ file(GLOB_RECURSE SOURCES
     ${PROJECT_SOURCE_DIR}/Firmware/GD32F4xx_standard_peripheral/Source/gd32f4xx_dac.c
     ${PROJECT_SOURCE_DIR}/Firmware/GD32F4xx_standard_peripheral/Source/gd32f4xx_tli.c
     ${PROJECT_SOURCE_DIR}/Firmware/GD32F4xx_standard_peripheral/Source/gd32f4xx_exmc.c
-    ${PROJECT_SOURCE_DIR}/Hardware/key/key.c
-    ${PROJECT_SOURCE_DIR}/Hardware/LED/led.c
-    ${PROJECT_SOURCE_DIR}/Hardware/LCD/lcd.c
-    ${PROJECT_SOURCE_DIR}/Hardware/LCD/pic_480800.c
-    ${PROJECT_SOURCE_DIR}/Hardware/touch/touch.c
-    ${PROJECT_SOURCE_DIR}/Hardware/usart0/usart0.c
-    ${PROJECT_SOURCE_DIR}/User/gd32f4xx_it.c
-    ${PROJECT_SOURCE_DIR}/User/systick.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/key/key.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/LED/led.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/LCD/lcd.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/LCD/pic_480800.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/touch/touch.c
+    # ${PROJECT_SOURCE_DIR}/Hardware/usart0/usart0.c
+    # ${PROJECT_SOURCE_DIR}/User/gd32f4xx_it.c
+    # ${PROJECT_SOURCE_DIR}/User/systick.c
     ${PROJECT_SOURCE_DIR}/user/main.cc
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS/GD/GD32F4xx/Source/GCC/startup_gd32f450_470.S
     # ${PROJECT_SOURCE_DIR}/rtthread/context_gcc.S

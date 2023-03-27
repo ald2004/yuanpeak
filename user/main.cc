@@ -13,6 +13,7 @@ extern "C" {
 // #include "lib/lvgl/lvgl.h"
 // #include <rtdevice.h>
 #include "mythread.h"
+#include "HAL/exmc_sdram.h"
 #ifdef __cplusplus
 }
 #endif
@@ -29,11 +30,12 @@ int main(void){
     // uint16_t lastpos[5][2];
     // led_init();
     // key_init();
+    
     HAL::Init();
+    rt_kprintl("\n\r now wet inited sdram status :%d",rt_hw_sdram_init());
     // displayinit();
     // rt_mythread_init();
-    lvgl_thread_init();
-    rt_kprintl("new wet :%d",333);
+    rt_kprintl("\n\r now wet inited lvgl_thread_init status :%d",lvgl_thread_init());
     while(1) {
         Serial::println("-");
         rt_thread_mdelay(1000);

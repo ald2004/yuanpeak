@@ -5,7 +5,7 @@
 #include "gd32f4xx_rcu.h"
 #include "gd32f4xx_gpio.h"
 
-#include "systick.h"
+// #include "systick.h"
 #include "stdio.h"
 
 #define BSP_USART_TX_RCU  RCU_GPIOA

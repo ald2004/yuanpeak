@@ -400,3 +400,11 @@ void sdram_readbuffer_16(uint32_t sdram_device,uint16_t* pbuffer, uint32_t reada
         write_addr_prt += 2;
     }
 }
+
+int rt_hw_sdram_init(void)
+{
+    // rt_kprintl(" ----------   our sdram is inited. -------------------");
+    exmc_synchronous_dynamic_ram_init(EXMC_SDRAM_DEVICE0);
+    return 0;
+}
+INIT_BOARD_EXPORT(rt_hw_sdram_init);

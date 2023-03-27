@@ -53,5 +53,5 @@ void sdram_readbuffer_8(uint32_t sdram_device,uint8_t* pbuffer, uint32_t readadd
 void sdram_writebuffer_16(uint32_t sdram_device,uint16_t* pbuffer, uint32_t writeaddr, uint32_t numtowrite);
 /* read a block of 16-bit data from the EXMC SDRAM memory */
 void sdram_readbuffer_16(uint32_t sdram_device,uint16_t* pbuffer, uint32_t readaddr, uint32_t numtowrite);
-
+int rt_hw_sdram_init(void);
 #endif /* EXMC_SDRAM_H */
