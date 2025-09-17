@@ -31,7 +31,7 @@ set(FPU "")
 set(MCU_FLAGS "${CPU} -mthumb ${FPU} ${FLOAT-ABI}")
 set(CMAKE_C_FLAGS "${MCU_FLAGS} -std=gnu99 -Wall -fstack-usage -Wstack-usage=512 -fdata-sections -ffunction-sections -fno-common -fmessage-length=0 ${DBG_FLAGS} " CACHE INTERNAL "C compiler flags")
 #CPP 
-set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -fno-rtti -fno-exceptions -fno-builtin -Wall -fdata-sections -ffunction-sections ${DBG_FLAGS} " CACHE INTERNAL "Cxx compiler flags")
+set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -std=gnu++20 -fno-rtti -fno-exceptions -fno-builtin -Wall -fdata-sections -ffunction-sections ${DBG_FLAGS} " CACHE INTERNAL "Cxx compiler flags")
 #ASFLAGS
 set(CMAKE_ASM_FLAGS "${MCU_FLAGS} -x assembler-with-cpp ${DBG_FLAGS} ")
 set(CMAKE_EXE_LINKER_FLAGS "${MCU_FLAGS} -specs=nosys.specs -specs=nano.specs -Wl,--print-memory-usage,-Map=${PROJECT_NAME}.map,--cref -Wl,--gc-sections" CACHE INTERNAL "Exe linker flags")
