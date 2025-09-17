@@ -3,9 +3,10 @@ extern "C"{
 #endif
 #include <stdio.h>
 #include "HAL/systick.h"
-#include "lib/lvgl/porting/lv_port_disp.h"
-#include "lib/lvgl/porting/lv_port_indev.h"
-#include "lib/lvgl/demos/lv_demos.h"
+#include "lvgl/porting/lv_port_disp.h"
+#include "lvgl/porting/lv_port_indev.h"
+#include "lvgl/demos/lv_demos.h"
+#include "lvgl/examples/lv_examples.h"
 // #include "lcd.h"
 // #include "touch.h"
 

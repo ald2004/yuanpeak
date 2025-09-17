@@ -103,3 +103,44 @@ uint16_t  LCD_ReadPoint(uint16_t x,uint16_t y);                    //读点
 void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode);////在指定位置显示一个字符
 void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t size,uint8_t mode,uint8_t *p);//显示字符串
 void LCD_WriteRAM(uint16_t  RGB_Code);
+
+#include <stdint.h>
+// #include "exmc_sdram.h"
+
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+
+#define LCD_WIDTH 800
+#define LCD_HEIGHT 480
+#define LCD_FB_BYTE_PER_PIXEL 1
+
+
+#define HORIZONTAL_SYNCHRONOUS_PULSE 10
+#define HORIZONTAL_BACK_PORCH 150
+#define ACTIVE_WIDTH 800
+#define HORIZONTAL_FRONT_PORCH 15
+
+#define VERTICAL_SYNCHRONOUS_PULSE 10
+#define VERTICAL_BACK_PORCH 140
+#define ACTIVE_HEIGHT 480
+#define VERTICAL_FRONT_PORCH 40
+
+#define LCD_FRAME_BUF_ADDR 0XC0000000
+
+
+extern uint16_t ltdc_lcd_framebuf0[800][480] __attribute__((at(LCD_FRAME_BUF_ADDR)));
+
+/*******************************************************************************
+ * API
+ ******************************************************************************/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void lcd_disp_config(void);
+
+#if defined(__cplusplus)
+}
+#endif

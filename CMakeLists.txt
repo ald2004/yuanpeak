@@ -70,13 +70,14 @@ add_compile_options(-Og)
 # lvgl  =============================================================================================
 # include(FetchContent)
 option(LV_USE_DEMO_STRESS "lvgl stress test" ON)
-file(GLOB_RECURSE LV_USE_DEMO_STRESS_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/lib/lvgl/demos/stress/*.c)
+file(GLOB_RECURSE LV_USE_DEMO_STRESS_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/lvgl/demos/stress/*.c)
 if(LV_USE_DEMO_STRESS)
 add_compile_definitions(WITH_OPENCV2)
 
 endif()
-set(LVGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/lvgl)
-set(LV_CONF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/lv_conf.h CACHE STRING "" FORCE)
+# set(LVGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/lvgl)
+set(LVGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/lvgl)
+set(LV_CONF_PATH ${LVGL_ROOT_DIR}/lv_conf.h CACHE STRING "" FORCE)
 option(LV_LVGL_H_INCLUDE_SIMPLE
        "Use #include \"lvgl.h\" instead of #include \"../../lvgl.h\"" ON)
 
@@ -171,7 +172,7 @@ endif()
 
 set(ASM_SOURCES ${PROJECT_SOURCE_DIR}/../Firmware/CMSIS/GD/GD32F4xx/Source/GCC/startup_gd32f450_470.S)
 file(GLOB_RECURSE SOURCES
-    ${PROJECT_SOURCE_DIR}/GD32F4xx/*.c
+    # ${PROJECT_SOURCE_DIR}/GD32F4xx/*.c
     ${PROJECT_SOURCE_DIR}/user/*.c
     ${PROJECT_SOURCE_DIR}/HAL/*.c
     ${PROJECT_SOURCE_DIR}/HAL/*.cc
@@ -205,6 +206,8 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS/GD/GD32F4xx/Include
     ${PROJECT_SOURCE_DIR}/Firmware/CMSIS
     ${PROJECT_SOURCE_DIR}/Firmware/GD32F4xx_standard_peripheral/Include
+    ${PROJECT_SOURCE_DIR}/lvgl
+    ${PROJECT_SOURCE_DIR}/lvgl/examples
     )
 set(LINKER_SCRIPT ${PROJECT_SOURCE_DIR}/Firmware/Ld/Link.ld)
 
